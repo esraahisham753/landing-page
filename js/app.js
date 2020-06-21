@@ -44,12 +44,24 @@ const build_nav = () => {
     nav_list.appendChild(docFrag);
 };
 
+const remove_active = () => {
+    const nav_list = document.getElementById('navbar__list');
+    let nav_items = nav_list.querySelectorAll('li');
+    nav_items.forEach((currentValue) => {
+        currentValue.classList.remove('active');
+    });
+}
+
 const scroll_to = () => {
     let navbar = document.getElementById('navbar__list');
     navbar.addEventListener('click', function(ev){
         if(ev.target.tagName == 'LI'){
+            remove_active();
             let section = document.querySelector(`[data-nav='${ev.target.getAttribute('id')}']`);
             section.scrollIntoView({behavior: 'smooth'});
+            const id = ev.target.id;
+            let list_item = document.getElementById(id);
+            list_item.classList.add('active');
         }
     });
 };
